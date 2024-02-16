@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 import { FastifyInstance } from "fastify";
-import knex from "knex";
 import { z } from "zod";
+import { knex } from "../database";
 
 export async function usersRoutes(app: FastifyInstance) {
   app.post('/create', async (request, reply) => {
