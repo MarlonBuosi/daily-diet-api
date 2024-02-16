@@ -121,11 +121,11 @@ export async function mealsRoutes(app: FastifyInstance) {
     const mealsOnDiet = meals.filter(meal => meal.isDiet).length
     const mealsNotOnDiet = meals.filter(meal => !meal.isDiet).length
 
+    //TODO: get the best sequence on diet meals
     const sortedMealsByDate = meals.sort(
       (objA, objB) => Number(objA.createdAt) - Number(objB.createdAt),
     );
 
-    //TODO: get the best sequence on diet meals
     let count = 0
     sortedMealsByDate.map(meal => {
       if (meal.isDiet) {
@@ -133,6 +133,12 @@ export async function mealsRoutes(app: FastifyInstance) {
       }
     })
 
-    return reply.status(200).send(sortedMealsByDate)
+    const metrics = {
+      totalNumberOfMeals,
+      mealsOnDiet,
+      mealsNotOnDiet
+    }
+
+    return reply.status(200).send(metrics)
   })
 }
